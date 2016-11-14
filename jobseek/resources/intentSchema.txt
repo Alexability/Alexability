@@ -1,0 +1,45 @@
+{
+  "intents": [
+    {
+      "intent": "AMAZON.CancelIntent",
+      "slots": []
+    },
+    {
+      "intent": "AMAZON.StopIntent",
+      "slots": []
+    },
+    {
+      "intent": "AMAZON.HelpIntent",
+      "slots": []
+    },
+    {
+      "intent": "jobSeekIntent",
+      "slots": [
+        {
+          "name": "STEPVALUE",
+          "type": "STEPVALUES"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.FOUR_DIGIT_NUMBER"
+        },
+        {
+          "name": "Number",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "FirstName",
+          "type": "AMAZON.US_FIRST_NAME"
+        },
+        {
+          "name": "City",
+          "type": "AMAZON.US_CITY"
+        },
+        {
+          "name": "State",
+          "type": "AMAZON.STATE"
+        }
+      ]
+    }
+  ]
+}

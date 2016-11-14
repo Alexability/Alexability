@@ -1,0 +1,16 @@
+jobSeekIntent	new jobSeek
+jobSeekIntent	start jobSeek
+jobSeekIntent	create jobSeek
+jobSeekIntent	begin jobSeek
+jobSeekIntent	build jobSeek
+jobSeekIntent	new a jobSeek
+jobSeekIntent	start a jobSeek
+jobSeekIntent	create a jobSeek
+jobSeekIntent	begin a jobSeek
+jobSeekIntent	build a jobSeek
+jobSeekIntent	new the jobSeek
+jobSeekIntent	start the jobSeek
+jobSeekIntent	create the jobSeek
+jobSeekIntent	begin the jobSeek
+jobSeekIntent	build the jobSeek
+jobSeekIntent	{STEPVALUE}
