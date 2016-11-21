@@ -85,6 +85,10 @@ JobSeekHelper.prototype.buildJobSeek= function() {
   return compiledTemplate(templateValues);
 };
 
+JobSeekHelper.prototype.stepValue= function(valueIndex) {
+  return this.jobSeek[this.jobSeekIndex].steps[valueIndex].value;
+};
+
 
 JobSeekHelper.prototype.currentJobSeek = function() {
   return this.jobSeek[this.jobSeekIndex];

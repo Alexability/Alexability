@@ -2,11 +2,16 @@
 
 
 module.change_code = 1;
+var nodemailer = require('nodemailer');
 var _ = require("lodash");
+var mailerHelper = require("./mailer");
+var pdfMakerHelper = require("./pdfmaker");
+var JobSeekHelper = require("./jobseek_helper");
 var Skill = require("alexa-app");
 var skillService = new Skill.app("jobseek");
 var JobSeekHelper = require("./jobseek_helper");
 var JOB_SEEK_SESSION_KEY = "jobseek_builder";
+
 var getJobSeekHelper = function(request) {
   var jobSeekHelperData = request.session(JOB_SEEK_SESSION_KEY);
   if (jobSeekHelperData === undefined) {
@@ -22,11 +27,13 @@ var cancelIntentFunction = function(request, response) {
 skillService.intent("AMAZON.CancelIntent", {}, cancelIntentFunction);
 skillService.intent("AMAZON.StopIntent", {}, cancelIntentFunction);
 
+
 skillService.launch(function(request, response) {
   var prompt = "Welcome to Job Seek. "
     + "To create a new Job Seek Profile, say create a jobseek résumé";
   response.say(prompt).shouldEndSession(false);
 });
+
 
 skillService.intent("AMAZON.HelpIntent", {},
   function(request, response) {
@@ -55,16 +62,12 @@ skillService.intent("jobSeekIntent", {
     console.log("HELLO I am here")
     var jobSeekHelper = getJobSeekHelper(request);
     console.log("Shit"+ jobSeekHelper.getType())
-    if (jobSeekHelper.getType() == "Year")
-    {
-      console.log("I am at the year")
-      var stepValue = request.slot("Year");
-    }
-    else
-    {
-      console.log("I am at the else")
-      var stepValue = request.slot("STEPVALUE");
-    }
+    console.log("EMAIL:" + jobSeekHelper.stepValue(0));
+    var stepValue = request.slot("STEPVALUE");
+
+    //pdfMakerHelper.emailResume();
+
+    //var htmlVar = "<p> Mani is great </p> <p> ${stepValue} </p>"     
     jobSeekHelper.started = true;
     if (stepValue !== undefined) {
       jobSeekHelper.getStep().value = stepValue;
@@ -72,7 +75,9 @@ skillService.intent("jobSeekIntent", {
     if (jobSeekHelper.completed()) {
       var completedJobSeek = jobSeekHelper.buildJobSeek();
       response.card(jobSeekHelper.currentJobSeek().title, completedJobSeek);
-      response.say("Here is what I have for your resume: " + completedJobSeek + " Would you like to make any changes?");
+      //response.say(mailerHelper.emailResume());
+      response.say("A sample resume as been sent to your email and this is what I have in it: " + completedJobSeek + " Would you like to make any changes?");
+      mailerHelper.emailResume();
       response.shouldEndSession(true);
     } else {
       if (stepValue !== undefined) {
@@ -86,6 +91,7 @@ skillService.intent("jobSeekIntent", {
     response.session(JOB_SEEK_SESSION_KEY, jobSeekHelper);
   }
 );
+
 module.exports = skillService;
 
 
